@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuinteroFlix</title>
+    <style>
+        /* Estética General Dark Mode */
+        body {
+            background-color: #0a0a0a;
+            color: #eeeeee;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+/* La "Q" de QuinteroFlix */
+.brand-logo {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    color: #e50914; /* Rojo Netflix */
+    font-weight: 900;
+    font-size: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    z-index: 5;
+    font-family: 'Arial Black', sans-serif;
+}
+
+
+        h1 {
+            color: #e50914;
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #e50914;
+            padding-bottom: 10px;
+        }
+
+        /* Rejilla de películas: Ajustada para ser más pequeña y compacta */
+        .movie-grid {
+            display: grid;
+            /* Cada miniatura mide 160px de ancho */
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Tarjeta Estilo Vertical */
+        .movie-card {
+            background: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-decoration: none;
+            color: white;
+            border: 1px solid #222;
+            position: relative;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            border-color: #e50914;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Proporción de Aspecto Vertical (2:3) para Carteleras */
+        .poster-container {
+            width: 100%;
+            padding-top: 150%; /* Esto mantiene la forma de póster vertical */
+            position: relative;
+            background-color: #252525;
+        }
+
+        .poster-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.3s;
+        }
+
+        /* Efecto Play al pasar el ratón */
+        .movie-card:hover .poster-img {
+            opacity: 0.6;
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            color: #e50914;
+        }
+
+        .movie-card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        /* Texto de la película */
+        .movie-info {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .movie-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Corta el texto si es muy largo */
+        }
+
+        .year {
+            font-size: 0.75rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🎬 QuinteroFlix</h1>
+
+<div class="movie-grid">
+    
+    <a href="https://drive.google.com/file/d/1mtq9PBL9BkmW-VCkMxIrSx19IanuZlgw/view?usp=drive_link" target="_blank" class="movie-card">
+        <div class="brand-logo">Q</div> <div class="poster-container">
+            <div class="poster-img" style="background-image: url('images/piratas1.jpg');"></div>
+            <div class="play-overlay">▶</div>
+        </div>
+        <div class="movie-info">
+            <p class="movie-title">Piratas del Caribe 1</p>
+            <span class="year">2003</span>
+        </div>
+    </a>
+
+    <a href="https://drive.google.com/file/d/1t4dMMUznvfdO1te8RW-D90PKLKhsZaiD/view?usp=drive_link" target="_blank" class="movie-card">
+        <div class="brand-logo">Q</div> <div class="poster-container">
+            <div class="poster-img" style="background-image: url('images/piratas2.jpg');"></div>
+            <div class="play-overlay">▶</div>
+        </div>
+        <div class="movie-info">
+            <p class="movie-title">Piratas del Caribe 2</p>
+            <span class="year">2006</span>
+        </div>
+    </a>
+
+    <a href="https://drive.google.com/file/d/17ZlARnHILYfIB5t3ohI7i9Qh_CrlWHxM/view?usp=sharing" target="_blank" class="movie-card">
+        <div class="brand-logo">Q</div>
+        <div class="poster-container">
+            <div class="poster-img" style="background-image: url('images/piratas3.jpg');"></div>
+            <div class="play-overlay">▶</div>
+        </div>
+        <div class="movie-info"><p class="movie-title">Piratas del Caribe 3</p><span class="year">2007</span></div>
+    </a>
+
+    <a href="https://drive.google.com/file/d/1Zxwl4btlY-MYSahJuAcNcGwzEI5dlBan/view?usp=sharing" target="_blank" class="movie-card">
+        <div class="brand-logo">Q</div>
+        <div class="poster-container">
+            <div class="poster-img" style="background-image: url('images/piratas4.jpg');"></div>
+            <div class="play-overlay">▶</div>
+        </div>
+        <div class="movie-info"><p class="movie-title">Piratas del Caribe 4</p><span class="year">2011</span></div>
+    </a>
+
+    <a href="https://drive.google.com/file/d/1RE20yfStyWZBfpmQzUgQw5FlAn_bPkvl/view?usp=sharing" target="_blank" class="movie-card">
+        <div class="brand-logo">Q</div>
+        <div class="poster-container">
+            <div class="poster-img" style="background-image: url('images/piratas5.jpg');"></div>
+            <div class="play-overlay">▶</div>
+        </div>
+        <div class="movie-info"><p class="movie-title">Piratas del Caribe 5</p><span class="year">2017</span></div>
+    </a>
+
+</div>
+
+
+</body>
+</html>
