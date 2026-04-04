@@ -37,10 +37,9 @@
             gap: 15px; 
             padding: 20px 0; 
             align-items: center; 
-            flex-wrap: wrap; /* Para que si añades muchas, bajen de fila */
+            flex-wrap: wrap;
         }
 
-        /* Tarjeta de Película */
         .movie-item {
             position: relative;
             width: var(--poster-width);
@@ -97,7 +96,7 @@
         .title { font-weight: bold; margin: 0; font-size: 1rem; }
         .meta { font-size: 0.7rem; color: #46d369; margin-top: 5px; }
 
-        /* --- ESTILOS DEL POPUP (MODAL) --- */
+        /* MODAL STYLES */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -183,7 +182,7 @@
             </div>
         </a>
 
-        <div class="movie-item" onclick="openModal('0007', 'jamesbond.html')">
+        <div class="movie-item" onclick="openModal('MDAwNw==', 'jamesbond.html')">
             <div class="brand-logo">Q</div>
             <div class="movie-img" style="background-image: url('images/jamesbondbanner.jpg');"></div>
             <div class="info-overlay">
@@ -192,7 +191,7 @@
             </div>
         </div>
 
-        <div class="movie-item" onclick="openModal('1234', 'varios.html')">
+        <div class="movie-item" onclick="openModal('MTIzNA==', 'varios.html')">
             <div class="brand-logo">Q</div>
             <div class="movie-img" style="background-image: url('images/variosbanner.jpg');"></div>
             <div class="info-overlay">
@@ -208,7 +207,7 @@
             <h3 id="modal-title">Control Parental</h3>
             <p style="font-size: 0.9rem; color: #ccc;">Introduce el código PIN para acceder.</p>
             
-            <input type="password" id="passInput" placeholder="****" maxlength="4">
+            <input type="password" id="passInput" placeholder="****" maxlength="10">
             
             <div id="error-msg">PIN incorrecto. Inténtalo de nuevo.</div>
             
@@ -217,16 +216,32 @@
         </div>
     </div>
 
+    <audio id="audioError" src="error.mp3" preload="auto"></audio>
+    <audio id="audioCorrecto" src="correcto.mp3" preload="auto"></audio>
+
     <script>
-        let currentCorrectPin = "";
+        let encodedPin = "";
         let targetUrl = "";
 
         const modal = document.getElementById('passwordModal');
         const input = document.getElementById('passInput');
         const errorMsg = document.getElementById('error-msg');
+        
+        // Referencias a los audios
+        const audioError = document.getElementById('audioError');
+        const audioCorrecto = document.getElementById('audioCorrecto');
 
-        function openModal(pin, url) {
-            currentCorrectPin = pin;
+        // Función para decodificar (del sistema generador.html)
+        function decodeSecret(str) {
+            try {
+                return decodeURIComponent(escape(atob(str)));
+            } catch (e) {
+                return "";
+            }
+        }
+
+        function openModal(pinEnc, url) {
+            encodedPin = pinEnc;
             targetUrl = url;
             modal.style.display = 'flex';
             input.focus();
@@ -239,16 +254,25 @@
         }
 
         function checkPassword() {
-            if (input.value === currentCorrectPin) {
-                window.location.href = targetUrl;
+            // Decodificamos el secreto guardado para compararlo con lo que escribió el usuario
+            const realPin = decodeSecret(encodedPin);
+            
+            if (input.value === realPin) {
+                // Reproducir sonido correcto
+                audioCorrecto.play();
+                // Esperar un poco antes de redirigir para que se oiga el sonido
+                setTimeout(function() {
+                    window.location.href = targetUrl;
+                }, 500); // 500 milisegundos de pausa
             } else {
+                // Reproducir sonido error
+                audioError.play();
                 errorMsg.style.display = 'block';
                 input.value = '';
                 input.focus();
             }
         }
 
-        // Detectar tecla Enter
         input.addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
                 checkPassword();
